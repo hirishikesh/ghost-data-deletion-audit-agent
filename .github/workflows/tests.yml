@@ -1,0 +1,29 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: pip install -r requirements-dev.txt
+      - name: Regression tests (synthetic data, no API key)
+        run: python -m pytest -q
+      - name: Synthetic end-to-end demo
+        run: |
+          python examples/build_demo.py
+          python -m ghost_audit --dataset examples/demo_dataset --offline --strict \
+            --cache-dir examples/.demo_cache --output examples/demo_output.csv

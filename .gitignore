@@ -1,0 +1,29 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Private challenge data, derived outputs and traces - never commit
+dataset/
+output.csv
+sample_pred.csv
+log.txt
+agent-trace/
+*.jsonl
+
+# Model cache (holds transcriptions of private evidence) and archives
+.cache/
+*.zip
+
+# Synthetic demo artifacts (regenerate with examples/build_demo.py)
+examples/demo_dataset/
+examples/demo_output*
+examples/.demo_cache/
+.pytest_cache/
+*.egg-info/
+build/
+dist/

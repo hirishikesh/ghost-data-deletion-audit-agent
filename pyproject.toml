@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ghost-data-deletion-audit-agent"
+version = "2.0.0"
+description = "Evidence-based audit of personal-data deletion requests: deterministic compliance decisions with a narrow, validated Claude layer for screenshots and ambiguous request text."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Hirishikesh Parthasarathy" }]
+dependencies = ["anthropic>=2.0", "pypdf>=4.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+ghost-audit = "ghost_audit.cli:main"
+
+[tool.setuptools]
+packages = ["ghost_audit"]
+
+[tool.setuptools.package-data]
+ghost_audit = ["prompts/*.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
